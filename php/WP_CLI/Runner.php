@@ -270,6 +270,9 @@ class Runner {
 
 		$this->init_logger();
 
+		if ( isset( $this->config['require'] ) )
+			require $this->config['require'];
+
 		// Handle --version parameter
 		if ( isset( $this->assoc_args['version'] ) && empty( $this->arguments ) ) {
 			\WP_CLI\InternalFlags::version();
@@ -351,9 +354,6 @@ class Runner {
 		add_filter( 'filesystem_method', function() { return 'direct'; }, 99 );
 
 		Utils\set_user( $this->config );
-
-		if ( isset( $this->config['require'] ) )
-			require $this->config['require'];
 
 		// Handle --completions parameter
 		if ( isset( $this->assoc_args['completions'] ) ) {
